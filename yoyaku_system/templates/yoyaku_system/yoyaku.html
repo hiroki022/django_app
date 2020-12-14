@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html >
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>予約ページ</title>
+
+</head>
+<body>
+<h1>物品予約ページ</h1>
+<p>借りたい物品を選んでください</p>
+
+
+<form action="{% url 'confirm' %}" method ="post">
+{% csrf_token %}
+{{ form }}
+<br>
+<input type="submit" value="click">
+</form>
+<br>
+<a href="{{request.META.HTTP_REFERER}}">戻る</a>
+</body>
+</html> 

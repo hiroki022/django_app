@@ -1,0 +1,36 @@
+<!doctype html >
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>予約ページ</title>
+</head>
+
+<body>
+<h1>物品予約ページ</h1>
+<p>操作を選んでください</p>
+
+<a href="{% url 'yoyaku' %}">
+    <button type="button">予約</button>
+</a>
+<br>
+
+{% for camera in camera %}
+<tabel>
+    <tr>
+        <br>
+        <td>{{camera.camera_name}}</td>
+    </tr>
+</tabel>
+{% endfor %}
+<br>
+{% for equipment in equipment %}
+<tabel>
+    <tr>
+        <br>
+        <td>{{equipment.equipment_name}}</td>
+    </tr>
+</tabel>
+{% endfor %}
+
+</body>
+</html> 
