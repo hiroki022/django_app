@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from .models import Camera_manage, Equipment_manage, Booking
 from .forms import BookingForm
 import datetime
+from django.contrib.auth.decorators import login_required
 
+@login_required
 
 # Create your views here.
 def index(request):
