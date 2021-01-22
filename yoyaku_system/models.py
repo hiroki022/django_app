@@ -6,6 +6,7 @@ class Booking(models.Model):
     lending_day = models.DateTimeField() # auto_now_addのほうが良いかもしれない
     return_day = models.DateTimeField()
     returned = models.BooleanField()
+    user_mail = models.EmailField(max_length=150, blank=True)
 
     def __str__(self):
         return self.lending_day.strftime('%Y/%m/%d')

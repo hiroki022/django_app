@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ユーザー登録</title>
+  </head>
+  <body>
+    <h1>Please Sign Up.</h1>
+    <form action="{% url 'signup' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Sign Up">
+    </form>
+    <p>or <a href= "{% url 'login' %}">Login</a></p>
+
+  </body>
+</html>

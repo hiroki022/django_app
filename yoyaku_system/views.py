@@ -87,6 +87,7 @@ def conf(camera, equipment):
     camera.save()
     equipment.save()
 
-def booking_info(start_day,end_day):
+def booking_info(start_day, end_day):
+    #ユーザー情報からメールアドレスを引っ張ってきてデータベースに保存したい
     booking = Booking(lending_day=start_day,return_day=end_day,returned=False)
     booking.save()
