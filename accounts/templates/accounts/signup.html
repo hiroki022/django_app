@@ -9,7 +9,7 @@
     <form action="{% url 'signup' %}" method="post">
       {{ form.as_p }}
       {% csrf_token %}
-      <input type="submit" value="Sign Up">
+      <input type="submit" value="アカウント作成">
     </form>
     <p>or <a href= "{% url 'login' %}">Login</a></p>
 

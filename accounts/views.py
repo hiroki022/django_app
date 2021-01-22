@@ -9,13 +9,14 @@ from django.contrib.auth import authenticate, login
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        context = {'form': form}
         
         if form.is_valid():
             form.save()
-            return redirect('accounts/login.html')
+            return redirect('login')
     else:
         form = SignUpForm()
+        
+    context = {'form': form}
 
     
     return render(request, 'accounts/signup.html', context)
