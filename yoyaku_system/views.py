@@ -11,10 +11,14 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     camera_data = Camera_manage.objects.all()
     equipment_data = Equipment_manage.objects.all()
+    user_name = request.user.username
+    booking_data = Booking.objects.all().filter(user_name=user_name)
 
     params = {
         'camera': camera_data,
         'equipment': equipment_data,
+        'user_name': user_name,
+        'booking': booking_data,
     }
 
     return render(request, 'yoyaku_system/index.html', params)
@@ -71,7 +75,7 @@ def confirm(request):
         'end_day':end_day.strftime('%Y/%m/%d'),
     }
 
-    booking_info(start_day,end_day)
+    booking_info(request,start_day, end_day, camera,equipment)
 
     return render(request, 'yoyaku_system/confirm.html', params)
 
@@ -87,7 +91,11 @@ def conf(camera, equipment):
     camera.save()
     equipment.save()
 
-def booking_info(start_day, end_day):
+def booking_info(request,start_day, end_day,camera,equipment):
+    user_name = request.user.username
+    user_ID = request.user.id
     #ユーザー情報からメールアドレスを引っ張ってきてデータベースに保存したい
-    booking = Booking(lending_day=start_day,return_day=end_day,returned=False)
+    booking = Booking(lending_day=start_day, return_day=end_day,
+        returned=False, user_name = user_name, user_ID=user_ID, camera_name=camera, equipment_name=equipment)
     booking.save()
+

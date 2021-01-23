@@ -7,6 +7,7 @@
 
 <body>
 <h1>物品予約ページ</h1>
+<h2>ログイン中：{{ user_name }}</h2>
 <p>操作を選んでください</p>
 
 <a href="{% url 'yoyaku' %}">
@@ -31,6 +32,28 @@
     </tr>
 </tabel>
 {% endfor %}
+<br>
+<br>
+
+<h2>貸し出し履歴</h2>
+{% if booking %}
+{% for booking in booking %}
+<tabel>
+    <tr>
+        <p>貸し出し日</p>
+        <td>{{ booking.lending_day|date:"y/n/j" }}</td>
+    </tr>
+</tabel>
+{% endfor %}
+
+
+{% else %}
+
+<p>履歴がありません</p>
+
+{% endif %}
+
+
 <br>
 <br>
 <a href="/accounts/home">戻る</a>
