@@ -36,26 +36,33 @@
 <br>
 
 <h2>貸し出し履歴</h2>
-{% if booking %}
-{% for booking in booking %}
-<tabel>
-    <tr>
-        <p>貸し出し日</p>
-        <td>{{ booking.lending_day|date:"y/n/j" }}</td>
-    </tr>
-</tabel>
-{% endfor %}
-
+<table>
+	<tbody>
+		<tr>
+            <th>貸し出し日</th>
+            <th>カメラ名</th>
+            <th>備品名</th>
+            <th>返却日</th>
+        </tr>
+        {% if booking %}
+        {% for booking in booking %}
+		<tr>
+            <td>{{ booking.lending_day|date:"y/n/j" }}</td>
+            <td>{{ booking.camera_name }}</td>    
+            <td>{{ booking.equipment_name }}</td>
+            <td>{{ booking.return_day|date:"y/n/j" }}</td>
+        </tr>
+        {% endfor %}
+	</tbody>
+</table>
 
 {% else %}
-
 <p>履歴がありません</p>
-
 {% endif %}
 
+<br>
+<br>
 
-<br>
-<br>
 <a href="/accounts/home">戻る</a>
 
 </body>
