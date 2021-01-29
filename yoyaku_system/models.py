@@ -9,7 +9,7 @@ class Booking(models.Model):
     user_ID = models.CharField(default='', max_length=100, verbose_name='ユーザーID')
     lending_day = models.DateTimeField() # auto_now_addのほうが良いかもしれない
     return_day = models.DateTimeField()
-    returned = models.BooleanField()
+    returned = models.BooleanField(default=False)
     camera_name = models.CharField(default='',max_length=100, verbose_name='カメラ名')
     equipment_name = models.CharField(default='',max_length=100,verbose_name='備品名')
     #user_mail = models.EmailField(max_length=150, blank=True)

@@ -5,7 +5,7 @@ from .forms import BookingForm
 import datetime
 from django.contrib.auth.decorators import login_required
 
-@login_required
+@login_required #ここから下はログインしないと見れない
 
 # Create your views here.
 def index(request):
@@ -13,6 +13,12 @@ def index(request):
     equipment_data = Equipment_manage.objects.all()
     user_name = request.user.username
     booking_data = Booking.objects.all().filter(user_name=user_name)
+    
+    if request.method == 'POST': #返却ボタン
+        if 're' in request.POST:
+            booking_data.update(returned=True)
+        if 're2' in request.POST:
+            booking_data.update(returned=False)
 
     params = {
         'camera': camera_data,
@@ -22,8 +28,6 @@ def index(request):
     }
 
     return render(request, 'yoyaku_system/index.html', params)
-
-
 
 def yoyaku(request):
     camera_data = Camera_manage.objects.all()
@@ -47,7 +51,6 @@ def confirm(request):
     camera_data = Camera_manage.objects.all()
     equipment_data = Equipment_manage.objects.all()
 
-
     camera_post = request.POST['camera_name']
     equipment_post = request.POST['equipment_name']
 
@@ -58,12 +61,10 @@ def confirm(request):
     camera = Camera_manage.objects.get(camera_number=camera_post)
     equipment = Equipment_manage.objects.get(equipment_number=equipment_post)
 
-    """
-    conf(request, camera, equipment)
+    conf(request, camera, equipment) #個数を確認して物品が無ければ別のページを表示
     if (camera.camera_quantity < 0 or equipment.equipment_quantity < 0):
-    return render(request, 'yoyaku_system/not_booking.html')
-    """
-
+        return render(request, 'yoyaku_system/not_booking.html')
+    
     params = {
         'camera_data': camera_data,
         'equipment_data': equipment_data,
@@ -80,7 +81,7 @@ def confirm(request):
     return render(request, 'yoyaku_system/confirm.html', params)
 
 
-def conf(camera, equipment):
+def conf(request,camera, equipment):
         #残り個数
     c_residue = camera.camera_quantity - 1
     e_residue = equipment.equipment_quantity - 1
@@ -98,4 +99,3 @@ def booking_info(request,start_day, end_day,camera,equipment):
     booking = Booking(lending_day=start_day, return_day=end_day,
         returned=False, user_name = user_name, user_ID=user_ID, camera_name=camera, equipment_name=equipment)
     booking.save()
-

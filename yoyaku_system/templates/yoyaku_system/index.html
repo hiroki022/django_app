@@ -43,14 +43,35 @@
             <th>カメラ名</th>
             <th>備品名</th>
             <th>返却日</th>
+            <th>返却確認</th>
+            <th>返却ボタン</th>
         </tr>
-        {% if booking %}
+{% if booking %}
         {% for booking in booking %}
 		<tr>
             <td>{{ booking.lending_day|date:"y/n/j" }}</td>
-            <td>{{ booking.camera_name }}</td>    
+            <td>{{ booking.camera_name }}</td>
             <td>{{ booking.equipment_name }}</td>
             <td>{{ booking.return_day|date:"y/n/j" }}</td>
+            {% if booking.returned %}
+            <td>返却済み</td>
+            <td>
+                <form action="{% url 'index' %}" method ="post">
+                    {% csrf_token %}
+                    <button type="submit" name="re2" value="False">取り消し</button>
+                </form>
+            </td>
+            
+            {% else %}
+            <td>未返却</td>
+            <td>
+                <form action="{% url 'index' %}" method ="post">
+                    {% csrf_token %}
+                    <button type="submit" name="re" value="True">返却</button>
+                </form>
+            </td>
+            {% endif %}
+            
         </tr>
         {% endfor %}
 	</tbody>
@@ -66,4 +87,4 @@
 <a href="/accounts/home">戻る</a>
 
 </body>
-</html> 
+</html>

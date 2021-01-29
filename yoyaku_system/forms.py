@@ -1,5 +1,5 @@
 from django import forms
-from .models import Booking, Camera_manage, Equipment_manage
+from .models import Booking, Camera_manage, Equipment_manage, Booking
 from django.utils import timezone
 import datetime
 
@@ -24,4 +24,3 @@ class BookingForm(forms.Form):
         widget=forms.DateTimeInput(attrs={"type": "datetime-local", "value": timezone.datetime.now().strftime('%Y-%m-%dT%H:%M')}),
         input_formats=['%Y-%m-%dT%H:%M']
     )
-    
