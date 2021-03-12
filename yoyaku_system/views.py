@@ -13,18 +13,25 @@ def index(request):
     equipment_data = Equipment_manage.objects.all()
     user_name = request.user.username
     booking_data = Booking.objects.all().filter(user_name=user_name)
-    
+    booking_user_new = Booking.objects.all().filter(user_name=user_name).last()
+
+    print(booking_user_new.returned)
+
     if request.method == 'POST': #返却ボタン
         if 're' in request.POST:
-            booking_data.update(returned=True)
+            booking_user_new.returned=True
         if 're2' in request.POST:
-            booking_data.update(returned=False)
+            booking_user_new.returned = False
+        booking_user_new.save()
+
+    today = datetime.datetime.now().strftime('%Y/%m/%d')
 
     params = {
         'camera': camera_data,
         'equipment': equipment_data,
         'user_name': user_name,
         'booking': booking_data,
+        'today': today,
     }
 
     return render(request, 'yoyaku_system/index.html', params)

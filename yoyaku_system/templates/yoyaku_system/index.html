@@ -54,8 +54,14 @@
             <td>{{ booking.equipment_name }}</td>
             <td>{{ booking.return_day|date:"y/n/j" }}</td>
             {% if booking.returned %}
+            
             <td>返却済み</td>
+            {% if booking.return_day > today %}
+            <td style="display: none;">
+            {% else %}
             <td>
+            {% endif %}
+                
                 <form action="{% url 'index' %}" method ="post">
                     {% csrf_token %}
                     <button type="submit" name="re2" value="False">取り消し</button>
@@ -80,7 +86,6 @@
 {% else %}
 <p>履歴がありません</p>
 {% endif %}
-
 <br>
 <br>
 
