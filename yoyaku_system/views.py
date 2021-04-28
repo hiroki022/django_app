@@ -25,7 +25,7 @@ def index(request):
         booking_user_new.save()
 
     today = datetime.datetime.now().strftime('%Y/%m/%d')
-
+ 
     params = {
         'camera': camera_data,
         'equipment': equipment_data,
